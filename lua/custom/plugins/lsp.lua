@@ -218,7 +218,6 @@ return {
           typescript = {
             format = {
               insertSpaceAfterOpeningAndBeforeClosingEmptyBraces = false,
-              insertSpaceAfterOpeningAndBeforeClosingEmptyBrackets = false,
             },
           },
         },
