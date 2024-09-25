@@ -5,6 +5,12 @@ return {
   config = function()
     require('bufferline').setup {
       options = {
+        themable = true,
+        show_buffer_icons = false,
+        style_preset = {
+          3,
+          4,
+        },
         offsets = {
           {
             filetype = 'NvimTree',

@@ -1,3 +1,4 @@
+local goimports = require 'conform.formatters.goimports'
 return {
   -- Main LSP Configuration
   'neovim/nvim-lspconfig',

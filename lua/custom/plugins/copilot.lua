@@ -1,7 +1,7 @@
 return {
   'github/copilot.vim',
   config = function()
-    vim.keymap.set('i', '<C-l>', function()
+    vim.keymap.set('i', '<C-k>', function()
       vim.fn.feedkeys(vim.fn['copilot#Accept'](), '')
     end, {
       expr = true,

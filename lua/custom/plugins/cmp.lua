@@ -1,10 +1,52 @@
+local icons = {
+  Namespace = '󰌗',
+  Text = '󰉿',
+  Method = '󰆧',
+  Function = '󰆧',
+  Constructor = '',
+  Field = '󰜢',
+  Variable = '󰀫',
+  Class = '󰠱',
+  Interface = '',
+  Module = '',
+  Property = '󰜢',
+  Unit = '󰑭',
+  Value = '󰎠',
+  Enum = '',
+  Keyword = '󰌋',
+  Snippet = '',
+  Color = '󰏘',
+  File = '󰈚',
+  Reference = '󰈇',
+  Folder = '󰉋',
+  EnumMember = '',
+  Constant = '󰏿',
+  Struct = '󰙅',
+  Event = '',
+  Operator = '󰆕',
+  TypeParameter = '󰊄',
+  Table = '',
+  Object = '󰅩',
+  Tag = '',
+  Array = '[]',
+  Boolean = '',
+  Number = '',
+  Null = '󰟢',
+  Supermaven = '',
+  String = '󰉿',
+  Calendar = '',
+  Watch = '󰥔',
+  Package = '',
+  Copilot = '',
+  Codeium = '',
+  TabNine = '',
+}
 local formatting_style = {
   -- default fields order i.e completion word + item.kind + item.kind icons
   fields = { 'abbr', 'kind', 'menu' },
 
   format = function(_, item)
-    local icons = require 'nvchad.icons.lspkind'
-    local icon = true
+    local icon = icons[item.kind] or ''
 
     icon = (' ' .. icon .. ' ')
     item.kind = string.format('%s %s', icon, item.kind or '')
@@ -73,7 +115,7 @@ return { -- Autocompletion
           luasnip.lsp_expand(args.body)
         end,
       },
-      completion = { completeopt = 'menu,menuone,noinsert' },
+      completion = { completeopt = 'menu,menuone' },
 
       -- For an understanding of why these mappings were
       -- chosen, you will need to read `:help ins-completion`
@@ -112,30 +154,33 @@ return { -- Autocompletion
         --
         -- <c-l> will move you to the right of each of the expansion locations.
         -- <c-h> is similar, except moving you backwards.
-        -- ['<C-l>'] = cmp.mapping(function()
-        --   if luasnip.expand_or_locally_jumpable() then
-        --     luasnip.expand_or_jump()
-        --   end
-        -- end, { 'i', 's' }),
-        -- ['<C-h>'] = cmp.mapping(function()
-        --   if luasnip.locally_jumpable(-1) then
-        --     luasnip.jump(-1)
-        --   end
-        -- end, { 'i', 's' }),
+        ['<C-l>'] = cmp.mapping(function()
+          if luasnip.expand_or_locally_jumpable() then
+            luasnip.expand_or_jump()
+          end
+        end, { 'i', 's' }),
+        ['<C-h>'] = cmp.mapping(function()
+          if luasnip.locally_jumpable(-1) then
+            luasnip.jump(-1)
+          end
+        end, { 'i', 's' }),
 
         -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
         --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
       },
       sources = {
-        {
-          name = 'lazydev',
-          -- set group index to 0 to skip loading LuaLS completions as lazydev recommends it
-          group_index = 0,
-        },
         { name = 'nvim_lsp' },
         { name = 'luasnip' },
+        { name = 'buffer' },
+        { name = 'nvim_lua' },
         { name = 'path' },
+        -- {
+        --   name = 'lazydev',
+        --   -- set group index to 0 to skip loading LuaLS completions as lazydev recommends it
+        --   group_index = 0,
+        -- },
       },
+      formatting = formatting_style,
       window = {
         completion = {
           side_padding = 0,

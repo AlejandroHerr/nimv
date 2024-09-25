@@ -245,7 +245,7 @@ vim.keymap.set('n', '<Tab>', ':bnext<CR>', { desc = 'Next buffer' })
 vim.keymap.set('n', '<S-Tab>', ':bprevious<CR>', { desc = 'Previous buffer' })
 
 vim.keymap.set('n', '<C-s>', ':w<CR>', { desc = 'Save file' })
-vim.keymap.set('i', '<C-s>', ':w<CR>', { desc = 'Save file' })
+vim.keymap.set('i', '<C-s>', '<cmd>update<CR>', { desc = 'Save file' })
 vim.keymap.set('n', '<C-q>', ':q<CR>', { desc = 'Quit' })
 vim.keymap.set('n', '<C-x>', ':x<CR>', { desc = 'Save and quit' })
 
@@ -771,6 +771,7 @@ require('lazy').setup({
         lua = { 'stylua' },
         json = { 'jq' },
         jsonc = { 'jq' },
+        go = { 'goimports' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
@@ -786,21 +787,21 @@ require('lazy').setup({
   --     require('base46').load_all_highlights()
   --   end,
   -- },
-  {
-    'neanias/everforest-nvim',
-    version = false,
-    lazy = false,
-    priority = 1000, -- make sure to load this before all the other start plugins
-    -- Optional; default configuration will be used if setup isn't called.
-    config = function()
-      require('everforest').setup {
-        diagnostic_text_highlight = false,
-      }
-      vim.cmd [[colorscheme everforest]]
-    end,
-  },
-
-  -- Highlight todo, notes, etc in comments
+  -- {
+  --   'neanias/everforest-nvim',
+  --   version = false,
+  --   lazy = false,
+  --   priority = 1000, -- make sure to load this before all the other start plugins
+  --   -- Optional; default configuration will be used if setup isn't called.
+  --   config = function()
+  --     require('everforest').setup {
+  --       diagnostic_text_highlight = false,
+  --     }
+  --     vim.cmd [[colorscheme everforest]]
+  --   end,
+  -- },
+  --
+  -- -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
 
   { -- Collection of various small independent plugins/modules
@@ -967,6 +968,7 @@ require('lazy').setup({
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
   { import = 'custom.plugins' },
+  { import = 'custom.themes' },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
